@@ -7,6 +7,9 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {FormsModule} from '@angular/forms';
+import {HttpClient} from "@angular/common/http";
 
 
 @NgModule({
@@ -14,10 +17,14 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
+
     BrowserModule,
-    BsDropdownModule.forRoot(),
-    TooltipModule.forRoot(),
-    ModalModule.forRoot()
+    FormsModule,
+    HttpClient
+    AdminModule,
+    UserModule,
+    CatalogModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,31 @@
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <strong class="navbar-brand">{{title}}</strong>
+    </div>
+    <ul class="nav navbar-nav">
+    </ul>
+  </div>
+</div>
+<div class="container">
+  <form #loginForm="ngForm" (ngSubmit)="onFormSubmit(loginForm)">
+    <div class="form-group row">
+      <div class="col-xs-2">
+        <input class="form-control" placeholder="username" id="username" required minlength="2"
+               [(ngModel)]="user.username" name="username" #username="ngModel"/>
+      </div>
+      <div class="col-xs-2">
+        <input class="form-control" type="password" placeholder="password" id="password" required minlength="2"
+               [(ngModel)]="user.password" name="password" #password="ngModel"/>
+      </div>
+      <div class="col-xs-3">
+        <button class="btn btn-md btn-primary col-xs-8">Login</button>
+      </div>
+    </div>
+  </form>
+  <div class="row"*ngIf="error != null">
+    <div class="alert alert-danger">
+      <p>{{error}}</p>
+    </div>
+  </div>
+</div>
