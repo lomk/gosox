@@ -24,39 +24,15 @@ export class AuthService {
 
   getCurrentUser(): Observable<any> {
 
-    return this.http.get(this.currentUserUrl, {headers : this.headers,  params: this.params })
-      .map(response => {
-        if (response.status === 200) {
-          return response.json() as User;
-        }
-      })
-      .catch(this.handleError);
+    return this.http.get(this.currentUserUrl, {headers : this.headers,  params: this.params });
   }
 
-  isAuthenticated(): boolean {
-    let result = false;
-    this.http.get(this.currentUserUrl, {headers : this.headers,  params: this.params })
-      .map(response => {
-        if (response.status === 200) {
-          result = true;
-        }
-      }).catch(this.handleError);
-    return result;
+  isAuthenticated(): Observable<any> {
+    return this.http.get(this.currentUserUrl, {headers : this.headers,  params: this.params });
   }
 
-  isAdmin(): boolean {
-    let result = false;
-
-    this.http.get(this.currentUserUrl, {headers : this.headers,  params: this.params });
-      .map(response => {
-        if (response.status === 200) {
-          if ( response.json().role.name === 'ADMIN' ) {
-            result = true;
-            return true;
-          }
-        }
-      }).catch(this.handleError);
-    return result;
+  isAdmin():  Observable<any>  {
+    return this.http.get(this.currentUserUrl, {headers : this.headers,  params: this.params });
   }
 
   login(username: string, password: string): Observable<any> {
@@ -69,7 +45,7 @@ export class AuthService {
       .post(this.loginUrl, {headers : this.headers,  params: this.params, body: body.toString() });
   }
 
-  logout(): Observable<void> {
+  logout(): Observable<any> {
 
     return this.http
       .get(this.logoutUrl,  {headers : this.headers,  params: this.params });

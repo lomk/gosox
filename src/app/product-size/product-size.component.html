@@ -1,0 +1,34 @@
+<h2>Users</h2>
+<div class="row">
+  <table class="table table">
+    <tr>
+      <th class="col-sm-1">id</th>
+      <th class="col-sm-1">Name</th>
+      <th class="col-sm-1">Role</th>
+      <th class="col-sm-1"></th>
+    </tr>
+  </table>
+  <table class="table table">
+    <tr *ngFor="let user of users"
+        [ngClass]="{'active': selectedUser == user}"
+        (mouseover)="onSelect(user)">
+      <td class="col-sm-1">{{user.id}}</td>
+      <td class="col-sm-1">{{user.username}}</td>
+      <td class="col-sm-1">{{user.role.name}}</td>
+      <td *ngIf="selectedUser == user; then selectedrow else unselectedrow">
+      </td>
+      <ng-template #selectedrow>
+        <td class="col-sm-1">
+          <button class="btn btn-sm btn-danger"
+                  (click)="delete(user); $event.stopPropagation()">Delete</button>
+        </td>
+      </ng-template>
+      <ng-template #unselectedrow>
+        <td class="col-sm-1"></td>
+      </ng-template>
+    </tr>
+  </table>
+</div>
+<div class="row form-group mt-4">
+  <a type="button" class="btn btn-md btn-primary col-xs-2" routerLink="new" routerLinkActive="active">Add new user</a>
+</div>
