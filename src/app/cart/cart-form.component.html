@@ -1,0 +1,40 @@
+<form #cartForm="ngForm" (ngSubmit)="onFormSubmit(cartForm)">
+  <div class="form-group row">
+    <div class="col-xs-3">
+      <select class="form-control" name="role" [(ngModel)]="role">
+        <option [ngValue]="null" disabled>Choose role</option>
+        <option *ngFor="let role of roles" [ngValue]="role">
+          {{role.name}}
+        </option>
+      </select>
+    </div>
+    <div class="col-xs-2">
+      <input class="form-control" placeholder="cartname" id="cartname" required minlength="2"
+             [(ngModel)]="cart.cartname" name="cartname" #cartname="ngModel"/>
+    </div>
+    <div class="col-xs-2">
+      <input class="form-control" type="password" placeholder="password" id="password" required minlength="2"
+             [(ngModel)]="cart.password" name="password" #password="ngModel"/>
+    </div>
+    <div class="col-xs-2">
+      <input class="form-control" type="password" placeholder="confirm password" id="confirmPassword" required minlength="2"
+             [(ngModel)]="cart.confirmPassword" name="confirmPassword" #confirmPassword="ngModel"/>
+    </div>
+    <div class="col-xs-3">
+      <button class="btn btn-md btn-primary col-xs-8">Add</button>
+    </div>
+  </div>
+  <div *ngIf="error" class="alert alert-danger">
+    <p>{{error}}</p>
+    <p>234234234</p>
+  </div>
+  <div *ngIf="cartname.invalid && (cartname.dirty || cartname.touched)"
+       class="alert alert-danger">
+    <div *ngIf="cartname.errors.required">
+      name is required.
+    </div>
+    <div *ngIf="cartname.errors.minlength">
+      IP name must be at least 4 characters long.
+    </div>
+  </div>
+</form>

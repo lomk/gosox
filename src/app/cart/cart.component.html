@@ -1,4 +1,4 @@
-<h2>Users</h2>
+<h2>Carts</h2>
 <div class="row">
   <table class="table table">
     <tr>
@@ -9,18 +9,18 @@
     </tr>
   </table>
   <table class="table table">
-    <tr *ngFor="let user of users"
-        [ngClass]="{'active': selectedUser == user}"
-        (mouseover)="onSelect(user)">
-      <td class="col-sm-1">{{user.id}}</td>
-      <td class="col-sm-1">{{user.username}}</td>
-      <td class="col-sm-1">{{user.role.name}}</td>
-      <td *ngIf="selectedUser == user; then selectedrow else unselectedrow">
+    <tr *ngFor="let cart of carts"
+        [ngClass]="{'active': selectedCart == cart}"
+        (mouseover)="onSelect(cart)">
+      <td class="col-sm-1">{{cart.id}}</td>
+      <td class="col-sm-1">{{cart.cartname}}</td>
+      <td class="col-sm-1">{{cart.role.name}}</td>
+      <td *ngIf="selectedCart == cart; then selectedrow else unselectedrow">
       </td>
       <ng-template #selectedrow>
         <td class="col-sm-1">
           <button class="btn btn-sm btn-danger"
-                  (click)="delete(user); $event.stopPropagation()">Delete</button>
+                  (click)="delete(cart); $event.stopPropagation()">Delete</button>
         </td>
       </ng-template>
       <ng-template #unselectedrow>
@@ -30,5 +30,5 @@
   </table>
 </div>
 <div class="row form-group mt-4">
-  <a type="button" class="btn btn-md btn-primary col-xs-2" routerLink="new" routerLinkActive="active">Add new user</a>
+  <a type="button" class="btn btn-md btn-primary col-xs-2" routerLink="new" routerLinkActive="active">Add new cart</a>
 </div>

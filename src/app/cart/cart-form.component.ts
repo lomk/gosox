@@ -1,28 +1,29 @@
 import {RoleService}        from '../role/role.service';
 import {Role}               from '../role/role';
-import {UserService}        from './cart.service';
-import {User}               from './cart';
+import {CartService}        from './cart.service';
+import {Cart}               from './cart';
 import {Component, OnInit}  from '@angular/core';
 import {Router}             from '@angular/router';
 import {NgForm}             from '@angular/forms';
+import {CartProduct} from "../cart-product/cart-product";
 
 @Component({
   selector: 'local-ip-form',
   templateUrl: './cart-form.component.html',
   providers: [
-    UserService,
+    CartService,
     RoleService]
 })
-export class UserFormComponent implements OnInit {
-  user = new User();
+export class CartFormComponent implements OnInit {
+  cart = new Cart();
   roles: Role[];
   error: String;
-  currentUser: User;
+  currentCart: Cart;
 
   constructor(private router: Router,
-              private userService: UserService,
-              private roleService: RoleService) {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+              private cartService: CartService,
+              private cartProductService: CartProductService) {
+    this.currentCart = JSON.parse(localStorage.getItem('currentCart'));
   }
 
   getData(): void {
@@ -33,15 +34,13 @@ export class UserFormComponent implements OnInit {
   }
 
   onFormSubmit(form: NgForm) {
-    const newUser = new User();
-    newUser.username = form.controls['username'].value;
-    newUser.role = form.controls['role'].value;
-    newUser.password = form.controls['password'].value;
-    newUser.confirmPassword = form.controls['confirmPassword'].value;
-    this.userService.create(newUser)
-      .subscribe(user => {
-        this.user = user;
-        this.router.navigate([this.currentUser.role.name.toLowerCase() + '/users'])
+    const newCart = new Cart();
+    newCart.user = form.controls['user'].value;
+    newCart.cartProducts = form.controls['cartProducts'].value;
+    this.cartService.create(newCart)
+      .subscribe(cart => {
+        this.cart = cart;
+        this.router.navigate([this.user.role.name.toLowerCase() + '/carts'])
           .catch(error =>  console.error('asdasdasdasdasd'));
       });
   }

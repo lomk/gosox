@@ -1,0 +1,40 @@
+<form #userForm="ngForm" (ngSubmit)="onFormSubmit(userForm)">
+  <div class="form-group row">
+    <div class="col-xs-3">
+      <select class="form-control" name="role" [(ngModel)]="role">
+        <option [ngValue]="null" disabled>Choose role</option>
+        <option *ngFor="let role of roles" [ngValue]="role">
+          {{role.name}}
+        </option>
+      </select>
+    </div>
+    <div class="col-xs-2">
+      <input class="form-control" placeholder="username" id="username" required minlength="2"
+             [(ngModel)]="user.username" name="username" #username="ngModel"/>
+    </div>
+    <div class="col-xs-2">
+      <input class="form-control" type="password" placeholder="password" id="password" required minlength="2"
+             [(ngModel)]="user.password" name="password" #password="ngModel"/>
+    </div>
+    <div class="col-xs-2">
+      <input class="form-control" type="password" placeholder="confirm password" id="confirmPassword" required minlength="2"
+             [(ngModel)]="user.confirmPassword" name="confirmPassword" #confirmPassword="ngModel"/>
+    </div>
+    <div class="col-xs-3">
+      <button class="btn btn-md btn-primary col-xs-8">Add</button>
+    </div>
+  </div>
+  <div *ngIf="error" class="alert alert-danger">
+    <p>{{error}}</p>
+    <p>234234234</p>
+  </div>
+  <div *ngIf="username.invalid && (username.dirty || username.touched)"
+       class="alert alert-danger">
+    <div *ngIf="username.errors.required">
+      name is required.
+    </div>
+    <div *ngIf="username.errors.minlength">
+      IP name must be at least 4 characters long.
+    </div>
+  </div>
+</form>

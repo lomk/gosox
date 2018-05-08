@@ -1,4 +1,4 @@
-<h2>Users</h2>
+<h2>Carts</h2>
 <div class="row">
   <table class="table table">
     <tr>
@@ -10,12 +10,12 @@
   </table>
   <table class="table table">
     <tr *ngFor="let user of users"
-        [ngClass]="{'active': selectedUser == user}"
+        [ngClass]="{'active': selectedCart == user}"
         (mouseover)="onSelect(user)">
       <td class="col-sm-1">{{user.id}}</td>
       <td class="col-sm-1">{{user.username}}</td>
       <td class="col-sm-1">{{user.role.name}}</td>
-      <td *ngIf="selectedUser == user; then selectedrow else unselectedrow">
+      <td *ngIf="selectedCart == user; then selectedrow else unselectedrow">
       </td>
       <ng-template #selectedrow>
         <td class="col-sm-1">

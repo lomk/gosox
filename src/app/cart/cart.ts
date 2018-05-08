@@ -1,9 +1,9 @@
-import {Role}       from '../role/role';
 
-export class User {
+import {User} from "../user/user";
+import {CartProduct} from "../cart-product/cart-product";
+
+export class Cart {
   id: number;
-  username: String;
-  password: String;
-  confirmPassword: String;
-  role: Role;
+  user: User;
+  cartProducts: CartProduct;
 }
