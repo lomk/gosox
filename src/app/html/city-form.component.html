@@ -1,0 +1,23 @@
+<form #cartForm="ngForm" (ngSubmit)="onFormSubmit(cartForm)">
+  <div class="form-group row">
+    <div class="col-xs-3">
+      <select class="form-control" name="cartProducts" [(ngModel)]="cartProducts">
+        <option [ngValue]="null" disabled>Choose role</option>
+        <option *ngFor="let cartProduct of cartProducts" [ngValue]="cartProducts">
+          {{cartProduct.product.productname}}
+        </option>
+      </select>
+    </div>
+    <div class="col-xs-2">
+      <input class="form-control" placeholder="cartname" id="cartname" required minlength="2"
+             [(ngModel)]="cart.user" name="cartname" #cartname="ngModel"/>
+    </div>
+    <div class="col-xs-3">
+      <button class="btn btn-md btn-primary col-xs-8">Add</button>
+    </div>
+  </div>
+  <div *ngIf="error" class="alert alert-danger">
+    <p>{{error}}</p>
+    <p>error</p>
+  </div>
+</form>

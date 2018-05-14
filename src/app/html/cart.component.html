@@ -1,0 +1,37 @@
+<h2>Carts</h2>
+<div class="row">
+  <table class="table table">
+    <tr>
+      <th class="col-sm-1">User</th>
+      <th class="col-sm-1">Products</th>
+      <th class="col-sm-1"></th>
+    </tr>
+  </table>
+  <table class="table table">
+    <tr *ngFor="let cart of carts"
+        [ngClass]="{'active': selectedCart == cart}"
+        (mouseover)="onSelect(cart)">
+      <td class="col-sm-1">{{cart.user}}</td>
+
+      <td class="col-sm-1">
+        <div *ngFor="let product of cart.cartProducts">
+          {{product.product.productname}}}
+        </div>
+      </td>
+      <td *ngIf="selectedCart == cart; then selectedrow else unselectedrow">
+      </td>
+      <ng-template #selectedrow>
+        <td class="col-sm-1">
+          <button class="btn btn-sm btn-danger"
+                  (click)="delete(cart); $event.stopPropagation()">Delete</button>
+        </td>
+      </ng-template>
+      <ng-template #unselectedrow>
+        <td class="col-sm-1"></td>
+      </ng-template>
+    </tr>
+  </table>
+</div>
+<div class="row form-group mt-4">
+  <a type="button" class="btn btn-md btn-primary col-xs-2" routerLink="new" routerLinkActive="active">Add new cart</a>
+</div>
