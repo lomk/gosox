@@ -1,4 +1,4 @@
-import {Role}       from './role';
+
 
 export class ProductMaterial {
   id: number;

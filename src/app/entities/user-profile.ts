@@ -1,9 +1,11 @@
-import {Role}       from './role';
+import {User}       from './user';
+import {UserGender} from "./user-gender";
 
-export class User {
+export class UserProfile {
   id: number;
-  username: String;
-  password: String;
-  confirmPassword: String;
-  role: Role;
+  firstName: String;
+  lastName: String;
+  phone: String;
+  userGender: UserGender;
+  user: User;
 }

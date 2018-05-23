@@ -33,10 +33,10 @@ export class CartProductService {
 
   }
 
-  search(term: string): Observable<CartProduct[]> {
-
+  update(cartProduct: CartProduct): Observable<CartProduct> {
     return this.httpClient
-      .get<CartProduct[]>(`${this.cartProductSearchUrl}=${term}`, {headers : this.headers,  params: this.params });
+      .post<CartProduct>(this.cartProductAddUrl, JSON.stringify(cartProduct), {headers : this.headers,  params: this.params });
+
   }
 
   delete(id: number): Observable<void> {

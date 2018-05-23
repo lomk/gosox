@@ -1,47 +1,47 @@
-import { User }         from '../entities/user-address';
+import { UserAddress }         from '../entities/user-address';
 import { Injectable }   from '@angular/core';
 import {Observable}     from 'rxjs/Observable';
 import {Globals} from '../globals';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 
 @Injectable()
-export class UserService {
-  private userAllUrl = this.globals.API_URL + '/api/admin/user/all';
-  private userUrl = this.globals.API_URL + '/api/admin/user';
-  private userAddUrl = this.globals.API_URL + '/api/admin/user/add';
-  private userSearchUrl = this.globals.API_URL + '/api/admin/user/search';
+export class UserAddressAddressService {
+  private userAddressAllUrl = this.globals.API_URL + '/api/admin/userAddress/all';
+  private userAddressUrl = this.globals.API_URL + '/api/admin/userAddress';
+  private userAddressAddUrl = this.globals.API_URL + '/api/admin/userAddress/add';
+  private userAddressSearchUrl = this.globals.API_URL + '/api/admin/userAddress/search';
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
   private params = new HttpParams().set('withCredentials', 'true');
 
 
   constructor(private httpClient: HttpClient, private globals: Globals) {
   }
-  getUsers(): Observable<User[]> {
+  getUserAddresss(): Observable<UserAddress[]> {
     return this.httpClient
-      .get<User[]>(this.userAllUrl, {headers : this.headers,  params: this.params });
+      .get<UserAddress[]>(this.userAddressAllUrl, {headers : this.headers,  params: this.params });
   }
 
-  getUser(id: number): Observable<User> {
-    const url = `${this.userUrl}/${id}`;
+  getUserAddress(id: number): Observable<UserAddress> {
+    const url = `${this.userAddressUrl}/${id}`;
     return this.httpClient
-      .get<User>(url, {headers : this.headers,  params: this.params });
+      .get<UserAddress>(url, {headers : this.headers,  params: this.params });
   }
 
-  create(user: User): Observable<User> {
+  create(userAddress: UserAddress): Observable<UserAddress> {
     return this.httpClient
-      .post<User>(this.userAddUrl, JSON.stringify(user), {headers : this.headers,  params: this.params });
+      .post<UserAddress>(this.userAddressAddUrl, JSON.stringify(userAddress), {headers : this.headers,  params: this.params });
 
   }
 
-  search(term: string): Observable<User[]> {
+  search(term: string): Observable<UserAddress[]> {
 
     return this.httpClient
-      .get<User[]>(`${this.userSearchUrl}=${term}`, {headers : this.headers,  params: this.params });
+      .get<UserAddress[]>(`${this.userAddressSearchUrl}=${term}`, {headers : this.headers,  params: this.params });
   }
 
   delete(id: number): Observable<void> {
 
-    const url = `${this.userUrl}/${id}`;
+    const url = `${this.userAddressUrl}/${id}`;
     return this.httpClient
       .delete(url, {headers : this.headers,  params: this.params })
       .catch(this.handleError);

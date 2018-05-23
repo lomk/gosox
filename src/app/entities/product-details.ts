@@ -1,4 +1,3 @@
-import {Product} from "./product";
 
 export class ProductDetails {
   id: number;
@@ -8,6 +7,5 @@ export class ProductDetails {
   numberOfCart: number;
   numberOfRefusal: number;
   quantityInStock: number;
-  product: Product;
 
 }

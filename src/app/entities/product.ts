@@ -3,6 +3,7 @@ import {ProductCategory} from "./product-category";
 import {ProductGender} from "./product-gender";
 import {ProductSize} from "./product-size";
 import {ProductMaterial} from "./product-material";
+import {ProductDetails} from "./product-details";
 
 export class Product {
   id: number;
@@ -20,5 +21,6 @@ export class Product {
   productGender: ProductGender;
   productSize: ProductSize;
   productMaterial: ProductMaterial;
+  productDetails: ProductDetails;
 
 }

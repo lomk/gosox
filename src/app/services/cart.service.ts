@@ -18,12 +18,6 @@ export class CartService {
 
   constructor(private httpClient: HttpClient, private globals: Globals) {
   }
-  getCarts(): Observable<Cart[]> {
-    return this.httpClient
-      .get<Cart[]>(this.cartAllUrl, {headers : this.headers,  params: this.params })
-      .catch(this.handleError);
-  }
-
   getCart(id: number): Observable<Cart> {
     const url = `${this.cartUrl}/${id}`;
     return this.httpClient
@@ -38,11 +32,11 @@ export class CartService {
 
   }
 
-  search(term: string): Observable<Cart[]> {
-
+  update(cart: Cart): Observable<Cart> {
     return this.httpClient
-      .get<Cart[]>(`${this.cartSearchUrl}=${term}`, {headers : this.headers,  params: this.params })
+      .post<Cart>(this.cartAddUrl, JSON.stringify(cart), {headers : this.headers,  params: this.params })
       .catch(this.handleError);
+
   }
 
   delete(id: number): Observable<void> {

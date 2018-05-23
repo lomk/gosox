@@ -1,9 +1,10 @@
-import {Role}       from './role';
 
-export class User {
+import {UserProfile} from "./user-profile";
+import {City} from "./city";
+
+export class UserAddress {
   id: number;
-  username: String;
-  password: String;
-  confirmPassword: String;
-  role: Role;
+  city: City;
+  user: UserProfile;
+
 }

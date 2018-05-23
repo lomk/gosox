@@ -16,33 +16,9 @@ export class RoleService {
   constructor(private httpClient: HttpClient, private globals: Globals) {
   }
 
-  getRoles(): Observable<Role[]> {
-    return this.httpClient.get<Role[]>(this.roleAllUrl, {headers : this.headers,  params: this.params });
-  }
-
   getRole(id: number): Observable<Role> {
     const url = `${this.roleUrl}/${id}`;
     return this.httpClient.get<Role>(url, {headers : this.headers,  params: this.params });
-
-  }
-
-  create(role: Role): Observable<Role> {
-
-    return this.httpClient
-      .post<Role>(this.roleAddUrl, JSON.stringify(role), {headers : this.headers,  params: this.params });
-  }
-
-  search(term: string): Observable<Role[]> {
-
-    return this.httpClient
-      .get<Role[]>(`${this.roleSearchUrl}=${term}`, {headers : this.headers,  params: this.params });
-
-  }
-
-  delete(id: number): Observable<String> {
-
-    const url = `${this.roleUrl}/${id}`;
-    return this.httpClient.delete<String>(url, {headers : this.headers,  params: this.params });
 
   }
 

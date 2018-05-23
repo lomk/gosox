@@ -10,7 +10,6 @@ import {HttpClient,
 export class ProductService {
   private productAllUrl = this.globals.API_URL + '/api/admin/product/all';
   private productUrl = this.globals.API_URL + '/api/admin/product';
-  private productAddUrl = this.globals.API_URL + '/api/admin/product/add';
   private productSearchUrl = this.globals.API_URL + '/api/admin/product/search';
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
   private params = new HttpParams().set('withCredentials', 'true');
@@ -28,23 +27,10 @@ export class ProductService {
       .get<Product>(url, {headers : this.headers,  params: this.params });
   }
 
-  create(product: Product): Observable<Product> {
-    return this.httpClient
-      .post<Product>(this.productAddUrl, JSON.stringify(product), {headers : this.headers,  params: this.params });
-  }
-
   search(term: string): Observable<Product[]> {
 
     return this.httpClient
       .get<Product[]>(`${this.productSearchUrl}=${term}`, {headers : this.headers,  params: this.params });
-  }
-
-
-  delete(id: number): Observable<void> {
-    const url = `${this.productUrl}/${id}`;
-    return this.httpClient
-      .delete(url, {headers : this.headers,  params: this.params })
-      .catch(this.handleError);
   }
 
   public handleError = (error: Response) => {

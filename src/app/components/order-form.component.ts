@@ -8,7 +8,7 @@ import {NgForm}             from '@angular/forms';
 
 @Component({
   selector: 'local-ip-form',
-  templateUrl: '../services/order-form.component.html',
+  templateUrl: '../html/order-form.component.html',
   providers: [
     UserService,
     RoleService]

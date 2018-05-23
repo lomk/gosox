@@ -6,7 +6,7 @@ import {Router}                 from '@angular/router';
 
 @Component({
   selector: 'app-users',
-  templateUrl: '../services/order.component.html' ,
+  templateUrl: '../html/order.component.html' ,
   providers: [UserService]
 })
 export class UserComponent implements OnInit {
