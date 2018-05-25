@@ -5,7 +5,7 @@ import { UserService }       from '../services/user-profile.service';
 import {Router}                 from '@angular/router';
 
 @Component({
-  selector: 'app-users',
+  selector: 'app-user-profile',
   templateUrl: '../templates/user-profile.component.html' ,
   providers: [UserService]
 })

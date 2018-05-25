@@ -1,47 +1,40 @@
 import { Component, OnInit }    from '@angular/core';
 
-import { User }              from '../entities/product-details';
-import { UserService }       from '../services/product-details.service';
+import { ProductDetails }              from '../entities/product-details';
+import { ProductDetailsService }       from '../services/product-details.service';
 import {Router}                 from '@angular/router';
+import {User} from "../entities/user";
 
 @Component({
-  selector: 'app-users',
+  selector: 'app-product-details',
   templateUrl: '../templates/product-details.component.html' ,
-  providers: [UserService]
+  providers: [ProductDetailsService]
 })
-export class UserComponent implements OnInit {
+export class ProductDetailsComponent implements OnInit {
   currentUser: User;
-  users: User[];
-  selectedUser: User;
+  productDetailses: ProductDetails[];
+  selectedProductDetails: ProductDetails;
+  restError: String;
 
   constructor(
     private router: Router,
-    private userService: UserService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
+    private productDetailsService: ProductDetailsService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
 
-  getUsers(): void {
-    this.userService.getUsers().subscribe(users => this.users = users,
+  getProductDetails(): void {
+    this.productDetailsService.getProductDetailss().subscribe(productDetailses => this.productDetailses = productDetailses,
       error => {
         if ( error === 401 ) {
-          this.router.navigate(['/login']);
+          this.restError = "service unavailable";
         }
       });
   }
 
-  delete(user: User): void {
-    this.userService
-      .delete(user.id)
-      .subscribe(() => {
-        this.users = this.users.filter(h => h !== user);
-        if (this.selectedUser === user) { this.selectedUser = null; }
-      });
-  }
-
   ngOnInit(): void {
-    this.getUsers();
+    this.getProductDetails();
   }
 
-  onSelect(user: User): void {
-    this.selectedUser = user;
+  onSelect(productDetails: ProductDetails): void {
+    this.selectedProductDetails = productDetails;
   }
 
 }

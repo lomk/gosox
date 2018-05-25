@@ -1,25 +1,26 @@
 import { Component, OnInit }    from '@angular/core';
 
-import { User }              from '../entities/product-gender';
-import { UserService }       from '../services/product-gender.service';
+import { ProductGender }              from '../entities/product-gender';
+import { ProductGenderService }       from '../services/product-gender.service';
 import {Router}                 from '@angular/router';
+import {User} from "../entities/user";
 
 @Component({
-  selector: 'app-users',
+  selector: 'app-productGenders',
   templateUrl: '../templates/product-gender.component.html' ,
-  providers: [UserService]
+  providers: [ProductGenderService]
 })
-export class UserComponent implements OnInit {
+export class ProductGenderComponent implements OnInit {
   currentUser: User;
-  users: User[];
-  selectedUser: User;
+  productGenders: ProductGender[];
+  selectedProductGender: ProductGender;
 
   constructor(
     private router: Router,
-    private userService: UserService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
+    private productGenderService: ProductGenderService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
 
-  getUsers(): void {
-    this.userService.getUsers().subscribe(users => this.users = users,
+  getProductGenders(): void {
+    this.productGenderService.getProductGenders().subscribe(productGenders => this.productGenders = productGenders,
       error => {
         if ( error === 401 ) {
           this.router.navigate(['/login']);
@@ -27,21 +28,14 @@ export class UserComponent implements OnInit {
       });
   }
 
-  delete(user: User): void {
-    this.userService
-      .delete(user.id)
-      .subscribe(() => {
-        this.users = this.users.filter(h => h !== user);
-        if (this.selectedUser === user) { this.selectedUser = null; }
-      });
-  }
+
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getProductGenders();
   }
 
-  onSelect(user: User): void {
-    this.selectedUser = user;
+  onSelect(productGender: ProductGender): void {
+    this.selectedProductGender = productGender;
   }
 
 }

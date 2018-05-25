@@ -14,7 +14,7 @@ export class ProductCategoryService {
 
   constructor(private httpClient: HttpClient, private globals: Globals) {
   }
-  getProductCategorys(): Observable<ProductCategory[]> {
+  getProductCategories(): Observable<ProductCategory[]> {
     return this.httpClient
       .get<ProductCategory[]>(this.productCategoryAllUrl, {headers : this.headers,  params: this.params });
   }

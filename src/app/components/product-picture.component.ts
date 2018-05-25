@@ -1,25 +1,26 @@
 import { Component, OnInit }    from '@angular/core';
 
-import { User }              from '../entities/product-picture';
-import { UserService }       from '../services/product-picture.service';
-import {Router}                 from '@angular/router';
+import { ProductPicture }               from '../entities/product-picture';
+import { ProductPictureService }        from '../services/product-picture.service';
+import {Router}                         from '@angular/router';
+import {User}                           from "../entities/user";
 
 @Component({
-  selector: 'app-users',
+  selector: 'app-productPictures',
   templateUrl: '../templates/product-picture.component.html' ,
-  providers: [UserService]
+  providers: [ProductPictureService]
 })
-export class UserComponent implements OnInit {
+export class ProductPictureComponent implements OnInit {
   currentUser: User;
-  users: User[];
-  selectedUser: User;
+  productPictures: ProductPicture[];
+  selectedProductPicture: ProductPicture;
 
   constructor(
     private router: Router,
-    private userService: UserService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
+    private productPictureService: ProductPictureService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
 
-  getUsers(): void {
-    this.userService.getUsers().subscribe(users => this.users = users,
+  getProductPictures(): void {
+    this.productPictureService.getProductPictures().subscribe(productPictures => this.productPictures = productPictures,
       error => {
         if ( error === 401 ) {
           this.router.navigate(['/login']);
@@ -27,21 +28,13 @@ export class UserComponent implements OnInit {
       });
   }
 
-  delete(user: User): void {
-    this.userService
-      .delete(user.id)
-      .subscribe(() => {
-        this.users = this.users.filter(h => h !== user);
-        if (this.selectedUser === user) { this.selectedUser = null; }
-      });
-  }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getProductPictures();
   }
 
-  onSelect(user: User): void {
-    this.selectedUser = user;
+  onSelect(productPicture: ProductPicture): void {
+    this.selectedProductPicture = productPicture;
   }
 
 }

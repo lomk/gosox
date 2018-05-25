@@ -1,47 +1,40 @@
-import { Component, OnInit }    from '@angular/core';
+import { Component, OnInit }          from '@angular/core';
 
-import { User }              from '../entities/product-brand';
-import { UserService }       from '../services/product-brand.service';
-import {Router}                 from '@angular/router';
+import { ProductBrand }               from '../entities/product-brand';
+import { ProductBrandService }        from '../services/product-brand.service';
+import {Router}                       from '@angular/router';
+import {User}                         from "../entities/user";
 
 @Component({
-  selector: 'app-users',
+  selector: 'app-product-brand',
   templateUrl: '../templates/product-brand.component.html' ,
-  providers: [UserService]
+  providers: [ProductBrandService]
 })
-export class UserComponent implements OnInit {
+export class ProductBrandComponent implements OnInit {
   currentUser: User;
-  users: User[];
-  selectedUser: User;
+  productBrands: ProductBrand[];
+  selectedProductBrand: ProductBrand;
+  restError: String;
 
   constructor(
     private router: Router,
-    private userService: UserService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
+    private productBrandService: ProductBrandService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
 
-  getUsers(): void {
-    this.userService.getUsers().subscribe(users => this.users = users,
+  getProductBrands(): void {
+    this.productBrandService.getProductBrands().subscribe(productBrands => this.productBrands = productBrands,
       error => {
         if ( error === 401 ) {
-          this.router.navigate(['/login']);
+          this.restError = "service unavailable";
         }
       });
   }
 
-  delete(user: User): void {
-    this.userService
-      .delete(user.id)
-      .subscribe(() => {
-        this.users = this.users.filter(h => h !== user);
-        if (this.selectedUser === user) { this.selectedUser = null; }
-      });
-  }
-
   ngOnInit(): void {
-    this.getUsers();
+    this.getProductBrands();
   }
 
-  onSelect(user: User): void {
-    this.selectedUser = user;
+  onSelect(productBrand: ProductBrand): void {
+    this.selectedProductBrand = productBrand;
   }
 
 }

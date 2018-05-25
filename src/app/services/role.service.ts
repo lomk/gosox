@@ -6,10 +6,8 @@ import {Globals} from '../globals';
 
 @Injectable()
 export class RoleService {
-  private roleAllUrl = this.globals.API_URL + '/api/admin/role/all';
+
   private roleUrl = this.globals.API_URL + '/api/admin/role';
-  private roleAddUrl = this.globals.API_URL + '/api/admin/role/add';
-  private roleSearchUrl = this.globals.API_URL + '/api/admin/role/search';
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
   private params = new HttpParams().set('withCredentials', 'true');
 

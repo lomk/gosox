@@ -1,25 +1,28 @@
 import { Component, OnInit }    from '@angular/core';
 
-import { User }              from '../entities/product-review';
-import { UserService }       from '../services/product-review.service';
+import { ProductReview }              from '../entities/product-review';
+import { ProductReviewService }       from '../services/product-review.service';
 import {Router}                 from '@angular/router';
+import {User} from "../entities/user";
+import {Product} from "../entities/product";
 
 @Component({
-  selector: 'app-users',
+  selector: 'app-productReviews',
   templateUrl: '../templates/product-review.component.html' ,
-  providers: [UserService]
+  providers: [ProductReviewService]
 })
-export class UserComponent implements OnInit {
+export class ProductReviewComponent implements OnInit {
   currentUser: User;
-  users: User[];
-  selectedUser: User;
+  productReviews: ProductReview[];
+  selectedProductReview: ProductReview;
 
   constructor(
     private router: Router,
-    private userService: UserService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
+    private productReviewService: ProductReviewService,
+    private product: Product) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
 
-  getUsers(): void {
-    this.userService.getUsers().subscribe(users => this.users = users,
+  getProductReviewsByProduct(product: Product): void {
+    this.productReviewService.getProductReviewsByProduct(product).subscribe(productReviews => this.productReviews = productReviews,
       error => {
         if ( error === 401 ) {
           this.router.navigate(['/login']);
@@ -27,21 +30,12 @@ export class UserComponent implements OnInit {
       });
   }
 
-  delete(user: User): void {
-    this.userService
-      .delete(user.id)
-      .subscribe(() => {
-        this.users = this.users.filter(h => h !== user);
-        if (this.selectedUser === user) { this.selectedUser = null; }
-      });
-  }
-
   ngOnInit(): void {
-    this.getUsers();
+    this.getProductReviewsByProduct(this.product);
   }
 
-  onSelect(user: User): void {
-    this.selectedUser = user;
+  onSelect(productReview: ProductReview): void {
+    this.selectedProductReview = productReview;
   }
 
 }

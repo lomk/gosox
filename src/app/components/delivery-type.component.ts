@@ -1,47 +1,41 @@
-import { Component, OnInit }    from '@angular/core';
+import { Component, OnInit }          from '@angular/core';
 
-import { User }              from '../entities/delivery-type';
-import { UserService }       from '../services/delivery-type.service';
-import {Router}                 from '@angular/router';
+import { DeliveryType }               from '../entities/delivery-type';
+import { DeliveryTypeService }        from '../services/delivery-type.service';
+import {Router}                       from '@angular/router';
+import {User}                         from "../entities/user";
 
 @Component({
-  selector: 'app-users',
+  selector: 'app-delivery-type',
   templateUrl: '../templates/delivery-type.component.html' ,
-  providers: [UserService]
+  providers: [DeliveryTypeService]
 })
-export class UserComponent implements OnInit {
+export class DeliveryTypeComponent implements OnInit {
   currentUser: User;
-  users: User[];
-  selectedUser: User;
+  deliveryTypes: DeliveryType[];
+  selectedDeliveryType: DeliveryType;
+  restError: String;
 
   constructor(
     private router: Router,
-    private userService: UserService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
+    private deliveryTypeService: DeliveryTypeService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
 
-  getUsers(): void {
-    this.userService.getUsers().subscribe(users => this.users = users,
+  getDeliveryTypes(): void {
+    this.deliveryTypeService.getDeliveryTypes().subscribe(deliveryTypes => this.deliveryTypes = deliveryTypes,
       error => {
         if ( error === 401 ) {
-          this.router.navigate(['/login']);
+          this.restError = "service unavailable";
         }
       });
   }
 
-  delete(user: User): void {
-    this.userService
-      .delete(user.id)
-      .subscribe(() => {
-        this.users = this.users.filter(h => h !== user);
-        if (this.selectedUser === user) { this.selectedUser = null; }
-      });
-  }
-
   ngOnInit(): void {
-    this.getUsers();
+    this.getDeliveryTypes();
+
   }
 
-  onSelect(user: User): void {
-    this.selectedUser = user;
+  onSelect(deliveryType: DeliveryType): void {
+    this.selectedDeliveryType = deliveryType;
   }
 
 }

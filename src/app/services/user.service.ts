@@ -6,10 +6,8 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 
 @Injectable()
 export class UserService {
-  private userAllUrl = this.globals.API_URL + '/api/admin/user/all';
   private userUrl = this.globals.API_URL + '/api/admin/user';
   private userAddUrl = this.globals.API_URL + '/api/admin/user/add';
-  private userSearchUrl = this.globals.API_URL + '/api/admin/user/search';
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
   private params = new HttpParams().set('withCredentials', 'true');
 

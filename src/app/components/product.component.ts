@@ -29,15 +29,6 @@ export class ProductComponent implements OnInit {
       });
   }
 
-  delete(product: Product): void {
-    this.productService
-      .delete(product.id)
-      .subscribe(() => {
-        this.products = this.products.filter(h => h !== product);
-        if (this.selectedProduct === product) { this.selectedProduct = null; }
-      });
-  }
-
   ngOnInit(): void {
     this.getProducts();
   }

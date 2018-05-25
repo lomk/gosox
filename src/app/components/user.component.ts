@@ -27,15 +27,6 @@ export class UserComponent implements OnInit {
       });
   }
 
-  delete(user: User): void {
-    this.userService
-      .delete(user.id)
-      .subscribe(() => {
-        this.users = this.users.filter(h => h !== user);
-        if (this.selectedUser === user) { this.selectedUser = null; }
-      });
-  }
-
   ngOnInit(): void {
     this.getUsers();
   }

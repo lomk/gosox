@@ -1,25 +1,26 @@
-import { Component, OnInit }    from '@angular/core';
+import { Component, OnInit }  from '@angular/core';
 
-import { User }              from '../entities/order';
-import { UserService }       from '../services/order.service';
-import {Router}                 from '@angular/router';
+import { Order }              from '../entities/order';
+import { OrderService }       from '../services/order.service';
+import {Router}               from '@angular/router';
+import {User}                 from "../entities/user";
 
 @Component({
-  selector: 'app-users',
+  selector: 'app-order',
   templateUrl: '../html/order.component.html' ,
-  providers: [UserService]
+  providers: [OrderService]
 })
-export class UserComponent implements OnInit {
+export class OrderComponent implements OnInit {
   currentUser: User;
-  users: User[];
-  selectedUser: User;
+  orders: Order[];
+  selectedOrder: Order;
 
   constructor(
     private router: Router,
-    private userService: UserService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
+    private orderService: OrderService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
 
-  getUsers(): void {
-    this.userService.getUsers().subscribe(users => this.users = users,
+  getOrders(): void {
+    this.orderService.getOrders().subscribe(orders => this.orders = orders,
       error => {
         if ( error === 401 ) {
           this.router.navigate(['/login']);
@@ -27,21 +28,12 @@ export class UserComponent implements OnInit {
       });
   }
 
-  delete(user: User): void {
-    this.userService
-      .delete(user.id)
-      .subscribe(() => {
-        this.users = this.users.filter(h => h !== user);
-        if (this.selectedUser === user) { this.selectedUser = null; }
-      });
-  }
-
   ngOnInit(): void {
-    this.getUsers();
+    this.getOrders();
   }
 
-  onSelect(user: User): void {
-    this.selectedUser = user;
+  onSelect(order: Order): void {
+    this.selectedOrder = order;
   }
 
 }

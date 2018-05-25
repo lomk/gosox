@@ -11,13 +11,22 @@ import {LogoutComponent} from "./components/logout.component";
 import {LoginComponent} from "./components/login.component";
 import {RoleComponent} from "./components/role.component";
 import {UserComponent} from "./components/user.component";
-import {AdminModule} from "./modules/admin.module";
-import {CustomerModule} from "./modules/customer.module";
-import {ManagerModule} from "./modules/manager.module";
+
 import {Globals} from "./globals";
 import {CartComponent} from "./components/cart.component";
-import {CartProductComponent} from "./components/cart-product.component";
 import {ProductComponent} from "./components/product.component";
+import {CityComponent} from "./components/city.component";
+import {OrderComponent} from "./components/order.component";
+import {DeliveryTypeComponent} from "./components/delivery-type.component";
+import {ProductBrandComponent} from "./components/product-brand.component";
+import {ProductCategoryComponent} from "./components/product-category.component";
+import {ProductDetailsComponent} from "./components/product-details.component";
+import {ProductGenderComponent} from "./components/product-gender.component";
+import {ProductMaterialComponent} from "./components/product-material.component";
+import {ProductMaterialQuantityComponent} from "./components/product-material-quantity.component";
+import {ProductPictureComponent} from "./components/product-picture.component";
+import {ProductReviewComponent} from "./components/product-review.component";
+import {ProductReviewFormComponent} from "./components/product-review-form.component";
 
 
 @NgModule({
@@ -27,17 +36,25 @@ import {ProductComponent} from "./components/product.component";
     LogoutComponent,
     RoleComponent,
     UserComponent,
-    ProductComponent,
     CartComponent,
-    CartProductComponent
+    CityComponent,
+    DeliveryTypeComponent,
+    OrderComponent,
+    ProductComponent,
+    ProductBrandComponent,
+    ProductCategoryComponent,
+    ProductDetailsComponent,
+    ProductGenderComponent,
+    ProductMaterialComponent,
+    ProductMaterialQuantityComponent,
+    ProductPictureComponent,
+    ProductReviewComponent,
+    ProductReviewFormComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClient,
-    AdminModule,
-    CustomerModule,
-    ManagerModule,
     AppRoutingModule
   ],
   providers: [

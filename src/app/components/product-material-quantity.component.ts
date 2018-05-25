@@ -1,25 +1,26 @@
 import { Component, OnInit }    from '@angular/core';
 
-import { User }              from '../entities/product-material-quantity';
-import { UserService }       from '../services/product-material-quantity.service';
+import { ProductMaterialQuantity }              from '../entities/product-material-quantity';
+import { ProductMaterialQuantityService }       from '../services/product-material-quantity.service';
 import {Router}                 from '@angular/router';
+import {User} from "../entities/user";
 
 @Component({
-  selector: 'app-users',
+  selector: 'app-productMaterialQuantitys',
   templateUrl: '../html/product-material-quantity.component.html' ,
-  providers: [UserService]
+  providers: [ProductMaterialQuantityService]
 })
-export class UserComponent implements OnInit {
+export class ProductMaterialQuantityComponent implements OnInit {
   currentUser: User;
-  users: User[];
-  selectedUser: User;
+  productMaterialQuantitys: ProductMaterialQuantity[];
+  selectedProductMaterialQuantity: ProductMaterialQuantity;
 
   constructor(
     private router: Router,
-    private userService: UserService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
+    private productMaterialQuantityService: ProductMaterialQuantityService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
 
-  getUsers(): void {
-    this.userService.getUsers().subscribe(users => this.users = users,
+  getProductMaterialQuantities(): void {
+    this.productMaterialQuantityService.getProductMaterialQuantities().subscribe(productMaterialQuantitys => this.productMaterialQuantitys = productMaterialQuantitys,
       error => {
         if ( error === 401 ) {
           this.router.navigate(['/login']);
@@ -27,21 +28,14 @@ export class UserComponent implements OnInit {
       });
   }
 
-  delete(user: User): void {
-    this.userService
-      .delete(user.id)
-      .subscribe(() => {
-        this.users = this.users.filter(h => h !== user);
-        if (this.selectedUser === user) { this.selectedUser = null; }
-      });
-  }
+
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getProductMaterialQuantities();
   }
 
-  onSelect(user: User): void {
-    this.selectedUser = user;
+  onSelect(productMaterialQuantity: ProductMaterialQuantity): void {
+    this.selectedProductMaterialQuantity = productMaterialQuantity;
   }
 
 }

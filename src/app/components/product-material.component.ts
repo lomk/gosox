@@ -1,25 +1,27 @@
 import { Component, OnInit }    from '@angular/core';
 
-import { User }              from '../entities/product-material';
-import { UserService }       from '../services/product-material.service';
 import {Router}                 from '@angular/router';
 
+import {User} from "../entities/user";
+import {ProductMaterialService} from "../services/product-material.service";
+import {ProductMaterial} from "../entities/product-material";
+
 @Component({
-  selector: 'app-users',
+  selector: 'app-product-materials',
   templateUrl: '../html/product-material.component.html' ,
-  providers: [UserService]
+  providers: [ProductMaterialService]
 })
-export class UserComponent implements OnInit {
+export class ProductMaterialComponent implements OnInit {
   currentUser: User;
-  users: User[];
-  selectedUser: User;
+  productMaterials: ProductMaterial[];
+  selectedProductMaterial: ProductMaterial;
 
   constructor(
     private router: Router,
-    private userService: UserService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
+    private productMaterialService: ProductMaterialService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
 
-  getUsers(): void {
-    this.userService.getUsers().subscribe(users => this.users = users,
+  getProductMaterials(): void {
+    this.productMaterialService.getProductMaterials().subscribe(productMaterials => this.productMaterials = productMaterials,
       error => {
         if ( error === 401 ) {
           this.router.navigate(['/login']);
@@ -27,21 +29,13 @@ export class UserComponent implements OnInit {
       });
   }
 
-  delete(user: User): void {
-    this.userService
-      .delete(user.id)
-      .subscribe(() => {
-        this.users = this.users.filter(h => h !== user);
-        if (this.selectedUser === user) { this.selectedUser = null; }
-      });
-  }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getProductMaterials();
   }
 
-  onSelect(user: User): void {
-    this.selectedUser = user;
+  onSelect(productMaterial: ProductMaterial): void {
+    this.selectedProductMaterial = productMaterial;
   }
 
 }

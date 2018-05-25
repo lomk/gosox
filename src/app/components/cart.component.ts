@@ -2,46 +2,61 @@ import { Component, OnInit }    from '@angular/core';
 
 import { Cart }              from '../entities/cart';
 import { CartService }       from '../services/cart.service';
-import {Router}                 from '@angular/router';
+import {User} from "../entities/user";
+import {CartProduct} from "../entities/cart-product";
+import {CartProductService} from "../services/cart-product.service";
 
 @Component({
-  selector: 'app-carts',
+  selector: 'app-cart',
   templateUrl: '../templates/cart.component.html' ,
-  providers: [CartService]
+  providers: [CartService, CartProductService]
 })
 export class CartComponent implements OnInit {
-  currentCart: Cart;
-  carts: Cart[];
-  selectedCart: Cart;
+  currentUser: User;
+  cart: Cart;
+  cartProducts: CartProduct[];
+  restError: String;
+  isUpdated: boolean;
 
   constructor(
-    private router: Router,
-    private cartService: CartService) { this.currentCart = JSON.parse(localStorage.getItem('currentCart'));}
+    // private router: Router,
+    private cartService: CartService,
+    private cartProductService: CartProductService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
 
-  getCarts(): void {
-    this.cartService.getCarts().subscribe(carts => this.carts = carts,
+  getCartById(id: number): void {
+    this.cartService.getCartById(id).subscribe(cart => this.cart = cart,
       error => {
         if ( error === 401 ) {
-          this.router.navigate(['/login']);
+          this.restError = "service unavailable";
         }
       });
   }
 
-  delete(cart: Cart): void {
-    this.cartService
-      .delete(cart.id)
-      .subscribe(() => {
-        this.carts = this.carts.filter(h => h !== cart);
-        if (this.selectedCart === cart) { this.selectedCart = null; }
+  getCartByUser(user: User): void {
+    this.cartService.getCartByUser(user).subscribe(cart => this.cart = cart,
+      error => {
+        if ( error === 401 ) {
+          this.restError = "service unavailable";
+        }
       });
   }
 
+ updateCart(cart: Cart): void {
+   this.cartService.update(cart).subscribe(cart => {
+     if (cart == this.cart){
+       this.isUpdated = true;
+     }},
+     error => {
+       if ( error === 401 ) {
+         this.restError = "service unavailable";
+       }
+     });
+ }
+
+
   ngOnInit(): void {
-    this.getCarts();
+    this.getCartByUser(this.currentUser);
   }
 
-  onSelect(cart: Cart): void {
-    this.selectedCart = cart;
-  }
 
 }

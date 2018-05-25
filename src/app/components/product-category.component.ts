@@ -1,47 +1,40 @@
 import { Component, OnInit }    from '@angular/core';
-
-import { User }              from '../entities/product-category';
-import { UserService }       from '../services/product-category.service';
 import {Router}                 from '@angular/router';
+import {ProductCategoryService} from "../services/product-category.service";
+import {ProductCategory} from "../entities/product-category";
+import {User} from "../entities/user";
 
 @Component({
-  selector: 'app-users',
-  templateUrl: '../templates/product-category.component.html' ,
-  providers: [UserService]
+  selector: 'app-product-categories',
+  templateUrl: '../templates/product-productCategory.component.html' ,
+  providers: [ProductCategoryService]
 })
-export class UserComponent implements OnInit {
+export class ProductCategoryComponent implements OnInit {
   currentUser: User;
-  users: User[];
-  selectedUser: User;
+  productCategories: ProductCategory[];
+  selectedProductCategory: ProductCategory;
+  restError: String;
 
   constructor(
     private router: Router,
-    private userService: UserService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
+    private productCategoryService: ProductCategoryService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
 
-  getUsers(): void {
-    this.userService.getUsers().subscribe(users => this.users = users,
+  getProductCategories(): void {
+    this.productCategoryService.getProductCategories().subscribe(productCategories => this.productCategories = productCategories,
       error => {
         if ( error === 401 ) {
-          this.router.navigate(['/login']);
+          this.restError = "service unavailable";
         }
       });
   }
 
-  delete(user: User): void {
-    this.userService
-      .delete(user.id)
-      .subscribe(() => {
-        this.users = this.users.filter(h => h !== user);
-        if (this.selectedUser === user) { this.selectedUser = null; }
-      });
-  }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getProductCategories();
   }
 
-  onSelect(user: User): void {
-    this.selectedUser = user;
+  onSelect(productCategory: ProductCategory): void {
+    this.selectedProductCategory = productCategory;
   }
 
 }
