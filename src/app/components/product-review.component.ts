@@ -8,13 +8,14 @@ import {Product} from "../entities/product";
 
 @Component({
   selector: 'app-productReviews',
-  templateUrl: '../templates/product-review.component.html' ,
+  templateUrl: '../html/product-review.component.html' ,
   providers: [ProductReviewService]
 })
 export class ProductReviewComponent implements OnInit {
   currentUser: User;
   productReviews: ProductReview[];
   selectedProductReview: ProductReview;
+  restError: String;
 
   constructor(
     private router: Router,
@@ -25,7 +26,7 @@ export class ProductReviewComponent implements OnInit {
     this.productReviewService.getProductReviewsByProduct(product).subscribe(productReviews => this.productReviews = productReviews,
       error => {
         if ( error === 401 ) {
-          this.router.navigate(['/login']);
+          this.restError = "service unavailable";
         }
       });
   }

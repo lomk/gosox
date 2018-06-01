@@ -6,29 +6,29 @@ import {Router}                 from '@angular/router';
 
 @Component({
   selector: 'app-users',
-  templateUrl: '../templates/user.component.html' ,
+  templateUrl: '../html/user.component.html' ,
   providers: [UserService]
 })
 export class UserComponent implements OnInit {
   currentUser: User;
-  users: User[];
+  user: User;
   selectedUser: User;
+  restError: String;
 
   constructor(
     private router: Router,
     private userService: UserService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
 
-  getUsers(): void {
-    this.userService.getUsers().subscribe(users => this.users = users,
+  getUser(id: number): void {
+    this.userService.getUser(id).subscribe(user => this.user = user,
       error => {
         if ( error === 401 ) {
-          this.router.navigate(['/login']);
+          this.restError = "service unavailable";
         }
       });
   }
 
   ngOnInit(): void {
-    this.getUsers();
   }
 
   onSelect(user: User): void {

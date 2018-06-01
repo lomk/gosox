@@ -1,47 +1,41 @@
-import { Component, OnInit }    from '@angular/core';
+import { Component, OnInit }        from '@angular/core';
 
-import { User }              from '../entities/product-size';
-import { UserService }       from '../services/product-size.service';
-import {Router}                 from '@angular/router';
+import { ProductSize }              from '../entities/product-size';
+import { ProductSizeService }       from '../services/product-size.service';
+import {Router}                     from '@angular/router';
+import {User}                       from "../entities/user";
 
 @Component({
-  selector: 'app-users',
-  templateUrl: '../templates/product-size.component.html' ,
-  providers: [UserService]
+  selector: 'app-productSizes',
+  templateUrl: '../html/product-size.component.html' ,
+  providers: [ProductSizeService]
 })
-export class UserComponent implements OnInit {
+export class ProductSizeComponent implements OnInit {
   currentUser: User;
-  users: User[];
-  selectedUser: User;
+  productSizes: ProductSize[];
+  selectedProductSize: ProductSize;
+  restError: String;
 
   constructor(
     private router: Router,
-    private userService: UserService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
+    private productSizeService: ProductSizeService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
 
-  getUsers(): void {
-    this.userService.getUsers().subscribe(users => this.users = users,
+  getProductSizes(): void {
+    this.productSizeService.getProductSizes().subscribe(productSizes => this.productSizes = productSizes,
       error => {
         if ( error === 401 ) {
-          this.router.navigate(['/login']);
+          this.restError = "service unavailable";
         }
       });
   }
 
-  delete(user: User): void {
-    this.userService
-      .delete(user.id)
-      .subscribe(() => {
-        this.users = this.users.filter(h => h !== user);
-        if (this.selectedUser === user) { this.selectedUser = null; }
-      });
-  }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getProductSizes();
   }
 
-  onSelect(user: User): void {
-    this.selectedUser = user;
+  onSelect(productSize: ProductSize): void {
+    this.selectedProductSize = productSize;
   }
 
 }

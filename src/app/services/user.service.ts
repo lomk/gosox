@@ -21,6 +21,12 @@ export class UserService {
       .get<User>(url, {headers : this.headers,  params: this.params });
   }
 
+  createUser(user: User): Observable<User> {
+    const url = this.userAddUrl;
+    return this.httpClient
+      .post<User>(url, {headers : this.headers,  params: this.params });
+  }
+
   public handleError = (error: Response) => {
     return Observable.throw(error.status);
   }

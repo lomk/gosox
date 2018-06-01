@@ -1,47 +1,39 @@
-import { Component, OnInit }    from '@angular/core';
-
-import { User }              from '../entities/user-gender';
-import { UserService }       from '../services/user-gender.service';
-import {Router}                 from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {UserGender} from '../entities/user-gender';
+import {UserGenderService} from '../services/user-gender.service';
+import {Router} from '@angular/router';
+import {User} from "../entities/user";
 
 @Component({
-  selector: 'app-users',
-  templateUrl: '../templates/user-gender.component.html' ,
-  providers: [UserService]
+  selector: 'app-userGenders',
+  templateUrl: '../html/user-gender.component.html' ,
+  providers: [UserGenderService]
 })
-export class UserComponent implements OnInit {
+export class UserGenderComponent implements OnInit {
   currentUser: User;
-  users: User[];
-  selectedUser: User;
+  userGenders: UserGender[];
+  selectedUserGender: UserGender;
+  restError: String;
 
   constructor(
     private router: Router,
-    private userService: UserService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
+    private userGenderService: UserGenderService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
 
-  getUsers(): void {
-    this.userService.getUsers().subscribe(users => this.users = users,
+  getUserGenders(): void {
+    this.userGenderService.getUserGenders().subscribe(userGenders => this.userGenders = userGenders,
       error => {
         if ( error === 401 ) {
-          this.router.navigate(['/login']);
+          this.restError = "service unavailable";
         }
       });
   }
 
-  delete(user: User): void {
-    this.userService
-      .delete(user.id)
-      .subscribe(() => {
-        this.users = this.users.filter(h => h !== user);
-        if (this.selectedUser === user) { this.selectedUser = null; }
-      });
-  }
-
   ngOnInit(): void {
-    this.getUsers();
+    this.getUserGenders();
   }
 
-  onSelect(user: User): void {
-    this.selectedUser = user;
+  onSelect(userGender: UserGender): void {
+    this.selectedUserGender = userGender;
   }
 
 }

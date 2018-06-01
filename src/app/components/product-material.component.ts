@@ -15,6 +15,7 @@ export class ProductMaterialComponent implements OnInit {
   currentUser: User;
   productMaterials: ProductMaterial[];
   selectedProductMaterial: ProductMaterial;
+  restError: String;
 
   constructor(
     private router: Router,
@@ -24,7 +25,7 @@ export class ProductMaterialComponent implements OnInit {
     this.productMaterialService.getProductMaterials().subscribe(productMaterials => this.productMaterials = productMaterials,
       error => {
         if ( error === 401 ) {
-          this.router.navigate(['/login']);
+          this.restError = "service unavailable";
         }
       });
   }

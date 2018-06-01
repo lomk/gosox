@@ -7,39 +7,29 @@ import {User} from '../entities/user';
 
 @Component({
   selector: 'app-roles',
-  templateUrl: '../templates/role.component.html' ,
+  templateUrl: '../html/role.component.html' ,
   providers: [RoleService]
 })
 export class RoleComponent implements OnInit {
   currentUser: User;
-  roles: Role[];
+  role: Role;
   selectedRole: Role;
+  restError: String;
 
   constructor(
     private router: Router,
     private roleService: RoleService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
 
-  getRoles(): void {
-    this.roleService.getRoles().subscribe(roles => this.roles = roles,
+  getRole(id: number): void {
+    this.roleService.getRole(id).subscribe(role => this.role = role,
       error => {
         if ( error === 401 ) {
-          this.router.navigate(['/login']);
+          this.restError = "service unavailable";
         }
       });
   }
 
-
-  delete(role: Role): void {
-    this.roleService
-      .delete(role.id)
-      .subscribe(() => {
-        this.roles = this.roles.filter(h => h !== role);
-        if (this.selectedRole === role) { this.selectedRole = null; }
-      });
-  }
-
   ngOnInit(): void {
-    this.getRoles();
   }
 
   onSelect(role: Role): void {

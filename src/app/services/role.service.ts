@@ -20,4 +20,10 @@ export class RoleService {
 
   }
 
+  getRoleByName(name: string): Observable<Role> {
+    const url = `${this.roleUrl}?name=${name}`;
+    return this.httpClient.get<Role>(url, {headers : this.headers,  params: this.params });
+
+  }
+
 }

@@ -7,7 +7,7 @@ import {User}                         from "../entities/user";
 
 @Component({
   selector: 'app-delivery-type',
-  templateUrl: '../templates/delivery-type.component.html' ,
+  templateUrl: '../html/delivery-type.component.html' ,
   providers: [DeliveryTypeService]
 })
 export class DeliveryTypeComponent implements OnInit {

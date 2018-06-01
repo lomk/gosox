@@ -1,18 +1,14 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-
-
-import { AppComponent } from './app.component';
+import {Globals} from "./globals";
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {FormsModule} from '@angular/forms';
-import {HttpClient} from "@angular/common/http";
+import {HttpClientModule} from "@angular/common/http";
 import {LogoutComponent} from "./components/logout.component";
 import {LoginComponent} from "./components/login.component";
 import {RoleComponent} from "./components/role.component";
 import {UserComponent} from "./components/user.component";
-
-import {Globals} from "./globals";
 import {CartComponent} from "./components/cart.component";
 import {ProductComponent} from "./components/product.component";
 import {CityComponent} from "./components/city.component";
@@ -27,11 +23,19 @@ import {ProductMaterialQuantityComponent} from "./components/product-material-qu
 import {ProductPictureComponent} from "./components/product-picture.component";
 import {ProductReviewComponent} from "./components/product-review.component";
 import {ProductReviewFormComponent} from "./components/product-review-form.component";
-
+import {ProductSizeComponent} from "./components/product-size.component";
+import {UserFormComponent} from "./components/user-form.component";
+import {UserGenderComponent} from "./components/user-gender.component";
+import {UserProfileComponent} from "./components/user-profile.component";
+import {UserProfileFormComponent} from "./components/user-profile-form.component";
+import {CatalogComponent} from "./components/catalog.component";
+import { BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import {AlertModule, CollapseModule} from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
+    CatalogComponent,
     LoginComponent,
     LogoutComponent,
     RoleComponent,
@@ -49,17 +53,27 @@ import {ProductReviewFormComponent} from "./components/product-review-form.compo
     ProductMaterialQuantityComponent,
     ProductPictureComponent,
     ProductReviewComponent,
-    ProductReviewFormComponent
+    ProductReviewFormComponent,
+    ProductSizeComponent,
+    UserFormComponent,
+    UserGenderComponent,
+    UserProfileComponent,
+    UserProfileFormComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClient,
-    AppRoutingModule
+    HttpClientModule,
+    AppRoutingModule,
+    BsDropdownModule.forRoot(),
+    AlertModule.forRoot(),
+    CollapseModule.forRoot()
   ],
   providers: [
     Globals
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  isCollapsed = true;
+}

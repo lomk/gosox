@@ -6,7 +6,7 @@ import {User} from "../entities/user";
 
 @Component({
   selector: 'app-product-categories',
-  templateUrl: '../templates/product-productCategory.component.html' ,
+  templateUrl: '../html/product-category.component.html' ,
   providers: [ProductCategoryService]
 })
 export class ProductCategoryComponent implements OnInit {

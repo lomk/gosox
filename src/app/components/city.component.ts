@@ -6,7 +6,7 @@ import {User}                   from "../entities/user";
 
 @Component({
   selector: 'app-city',
-  templateUrl: '../templates/city.component.html' ,
+  templateUrl: '../html/city.component.html' ,
   providers: [CityService]
 })
 export class CityComponent implements OnInit {

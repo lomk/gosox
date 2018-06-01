@@ -5,7 +5,7 @@ import {Globals} from '../globals';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 
 @Injectable()
-export class UserGenderGenderService {
+export class UserGenderService {
   private userGenderAllUrl = this.globals.API_URL + '/api/admin/userGender/all';
   private userGenderUrl = this.globals.API_URL + '/api/admin/userGender';
   private userGenderAddUrl = this.globals.API_URL + '/api/admin/userGender/add';

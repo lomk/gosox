@@ -1,14 +1,13 @@
 import { Component, OnInit }    from '@angular/core';
-
-import { Cart }              from '../entities/cart';
-import { CartService }       from '../services/cart.service';
+import {Cart} from '../entities/cart';
+import {CartService} from '../services/cart.service';
 import {User} from "../entities/user";
 import {CartProduct} from "../entities/cart-product";
 import {CartProductService} from "../services/cart-product.service";
 
 @Component({
   selector: 'app-cart',
-  templateUrl: '../templates/cart.component.html' ,
+  templateUrl: '../html/cart.component.html' ,
   providers: [CartService, CartProductService]
 })
 export class CartComponent implements OnInit {

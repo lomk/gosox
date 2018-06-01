@@ -5,19 +5,21 @@ import {User}               from '../entities/user';
 import {Component, OnInit}  from '@angular/core';
 import {Router}             from '@angular/router';
 import {NgForm}             from '@angular/forms';
+import {Globals} from '../globals';
 
 @Component({
   selector: 'local-ip-form',
-  templateUrl: '../templates/user-form.component.html',
+  templateUrl: '../html/user-form.component.html',
   providers: [
     UserService,
     RoleService]
 })
 export class UserFormComponent implements OnInit {
   user = new User();
-  roles: Role[];
+  role: Role;
   error: String;
   currentUser: User;
+  restError: String;
 
   constructor(private router: Router,
               private userService: UserService,
@@ -26,7 +28,7 @@ export class UserFormComponent implements OnInit {
   }
 
   getData(): void {
-    this.roleService.getRoles().subscribe(roles => this.roles = roles);
+    this.roleService.getRoleByName("customer").subscribe(role => this.role = role);
   }
   ngOnInit(): void {
     this.getData();
@@ -38,7 +40,7 @@ export class UserFormComponent implements OnInit {
     newUser.role = form.controls['role'].value;
     newUser.password = form.controls['password'].value;
     newUser.confirmPassword = form.controls['confirmPassword'].value;
-    this.userService.create(newUser)
+    this.userService.createUser(newUser)
       .subscribe(user => {
         this.user = user;
         this.router.navigate([this.currentUser.role.name.toLowerCase() + '/users'])

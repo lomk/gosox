@@ -7,7 +7,7 @@ import {User} from "../entities/user";
 
 @Component({
   selector: 'app-product-details',
-  templateUrl: '../templates/product-details.component.html' ,
+  templateUrl: '../html/product-details.component.html' ,
   providers: [ProductDetailsService]
 })
 export class ProductDetailsComponent implements OnInit {

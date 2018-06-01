@@ -14,6 +14,7 @@ export class ProductMaterialQuantityComponent implements OnInit {
   currentUser: User;
   productMaterialQuantitys: ProductMaterialQuantity[];
   selectedProductMaterialQuantity: ProductMaterialQuantity;
+  restError: String;
 
   constructor(
     private router: Router,
@@ -23,7 +24,7 @@ export class ProductMaterialQuantityComponent implements OnInit {
     this.productMaterialQuantityService.getProductMaterialQuantities().subscribe(productMaterialQuantitys => this.productMaterialQuantitys = productMaterialQuantitys,
       error => {
         if ( error === 401 ) {
-          this.router.navigate(['/login']);
+          this.restError = "service unavailable";
         }
       });
   }

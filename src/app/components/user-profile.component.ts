@@ -1,47 +1,41 @@
 import { Component, OnInit }    from '@angular/core';
 
-import { User }              from '../entities/user-profile';
-import { UserService }       from '../services/user-profile.service';
+import { UserProfile }              from '../entities/user-profile';
+import { UserProfileService }       from '../services/user-profile.service';
 import {Router}                 from '@angular/router';
+import {User} from "../entities/user";
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: '../templates/user-profile.component.html' ,
-  providers: [UserService]
+  selector: 'app-userProfile-profile',
+  templateUrl: '../html/user-profile.component.html' ,
+  providers: [UserProfileService]
 })
-export class UserComponent implements OnInit {
+export class UserProfileComponent implements OnInit {
   currentUser: User;
-  users: User[];
-  selectedUser: User;
+  userProfiles: UserProfile[];
+  selectedUserProfile: UserProfile;
+  restError: String;
 
   constructor(
     private router: Router,
-    private userService: UserService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
+    private userProfileService: UserProfileService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
 
-  getUsers(): void {
-    this.userService.getUsers().subscribe(users => this.users = users,
+  getUserProfiles(): void {
+    this.userProfileService.getUserProfiles().subscribe(userProfiles => this.userProfiles = userProfiles,
       error => {
         if ( error === 401 ) {
-          this.router.navigate(['/login']);
+          this.restError = "service unavailable";
         }
       });
   }
 
-  delete(user: User): void {
-    this.userService
-      .delete(user.id)
-      .subscribe(() => {
-        this.users = this.users.filter(h => h !== user);
-        if (this.selectedUser === user) { this.selectedUser = null; }
-      });
-  }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getUserProfiles();
   }
 
-  onSelect(user: User): void {
-    this.selectedUser = user;
+  onSelect(userProfile: UserProfile): void {
+    this.selectedUserProfile = userProfile;
   }
 
 }

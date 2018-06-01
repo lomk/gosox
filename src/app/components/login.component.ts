@@ -7,7 +7,7 @@ import {Router}             from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  templateUrl: '../templates/login.component.html' ,
+  templateUrl: '../html/login.component.html' ,
   providers: [AuthService]
 })
 export class LoginComponent implements OnInit {

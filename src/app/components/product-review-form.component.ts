@@ -19,6 +19,7 @@ export class ProductReviewFormComponent implements OnInit {
   error: String;
   currentUser: User;
   currentProduct: Product;
+  restError: String;
 
   constructor(private router: Router,
               private productReviewService: ProductReviewService, private product: Product) {

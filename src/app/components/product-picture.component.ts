@@ -7,13 +7,14 @@ import {User}                           from "../entities/user";
 
 @Component({
   selector: 'app-productPictures',
-  templateUrl: '../templates/product-picture.component.html' ,
+  templateUrl: '../html/product-picture.component.html' ,
   providers: [ProductPictureService]
 })
 export class ProductPictureComponent implements OnInit {
   currentUser: User;
   productPictures: ProductPicture[];
   selectedProductPicture: ProductPicture;
+  restError: String;
 
   constructor(
     private router: Router,
@@ -23,7 +24,7 @@ export class ProductPictureComponent implements OnInit {
     this.productPictureService.getProductPictures().subscribe(productPictures => this.productPictures = productPictures,
       error => {
         if ( error === 401 ) {
-          this.router.navigate(['/login']);
+          this.restError = "service unavailable";
         }
       });
   }
