@@ -8,14 +8,22 @@ import {HttpClient,
 
 @Injectable()
 export class ProductService {
-  private productAllUrl = this.globals.API_URL + '/api/admin/product/all';
-  private productUrl = this.globals.API_URL + '/api/admin/product';
-  private productSearchUrl = this.globals.API_URL + '/api/admin/product/search';
+  private productAllUrl = this.globals.API_URL + '/api/product/all';
+  private productUrl = this.globals.API_URL + '/api/product';
+  private productTopUrl = this.globals.API_URL + '/api/product/top';
+  private productSearchUrl = this.globals.API_URL + '/api/product/search';
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
-  private params = new HttpParams().set('withCredentials', 'true');
+  // private params = new HttpParams().set('withCredentials', 'true');
+  private params = new HttpParams();
 
   constructor(private httpClient: HttpClient, private globals: Globals) {
   }
+  getTopProducts(): Observable<Product[]> {
+    console.log("Get top products")
+    return this.httpClient
+      .get<Product[]>(this.productTopUrl, {headers : this.headers,  params: this.params });
+  }
+
   getProducts(): Observable<Product[]> {
     return this.httpClient
       .get<Product[]>(this.productAllUrl, {headers : this.headers,  params: this.params });

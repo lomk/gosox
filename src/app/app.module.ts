@@ -31,6 +31,7 @@ import {UserProfileFormComponent} from "./components/user-profile-form.component
 import {CatalogComponent} from "./components/catalog.component";
 import { BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {AlertModule, CollapseModule} from 'ngx-bootstrap';
+import {ProductViewComponent} from "./components/product-view.component";
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import {AlertModule, CollapseModule} from 'ngx-bootstrap';
     DeliveryTypeComponent,
     OrderComponent,
     ProductComponent,
+    ProductViewComponent,
     ProductBrandComponent,
     ProductCategoryComponent,
     ProductDetailsComponent,

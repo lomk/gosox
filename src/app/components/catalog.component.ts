@@ -23,8 +23,8 @@ export class CatalogComponent implements OnInit {
     private router: Router,
     private productService: ProductService) { this.currentUser = JSON.parse(localStorage.getItem('currentUser'));}
 
-  getProducts(): void {
-    this.productService.getProducts().subscribe(products => this.products = products,
+  getTopProducts(): void {
+    this.productService.getTopProducts().subscribe(products => this.products = products,
       error => {
         if ( error === 401 ) {
           this.restError = "service unavailable";
@@ -33,11 +33,10 @@ export class CatalogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getProducts();
+    this.getTopProducts();
   }
 
   onSelect(product: Product): void {
     this.selectedProduct = product;
   }
-
 }

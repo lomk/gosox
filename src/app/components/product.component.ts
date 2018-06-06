@@ -38,4 +38,5 @@ export class ProductComponent implements OnInit {
     this.selectedProduct = product;
   }
 
+
 }
